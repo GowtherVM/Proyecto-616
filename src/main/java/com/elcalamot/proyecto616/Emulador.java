@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Admin
  */
-public class Proyecto616 {
+public class Emulador {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> { //se utiliza para crear y mostrar la ventana del juego en el hilo 

@@ -1,3 +1,5 @@
+package com.elcalamot.proyecto616;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
