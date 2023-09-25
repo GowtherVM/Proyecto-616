@@ -4,6 +4,8 @@
 
 package com.elcalamot.proyecto616;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Admin
@@ -11,6 +13,10 @@ package com.elcalamot.proyecto616;
 public class Proyecto616 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SwingUtilities.invokeLater(() -> { //se utiliza para crear y mostrar la ventana del juego en el hilo 
+            //de eventos de Swing de una manera segura y adecuada.
+            Juego juego = new Juego();
+            juego.setVisible(true);
+        });
     }
 }
