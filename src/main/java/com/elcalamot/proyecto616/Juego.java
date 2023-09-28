@@ -5,9 +5,16 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Juego extends JFrame {
+
     private int personajeX;
     private int personajeY;
     private Image personajeImagen;
+    private boolean leftPressed;
+    private boolean rightPressed;
+    private boolean upPressed;
+    private boolean downPressed;
+    private int anchoNuevo;
+    private int altoNuevo;
 
     public Juego() {
         setTitle("Projecto 616"); //Titulo de la pantalla
@@ -17,55 +24,109 @@ public class Juego extends JFrame {
         //pulsamos y lo que pasa cuando las pulsamos
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        personajeX = 100;
-        personajeY = 100;
-        personajeImagen = new ImageIcon("imagenes/Demo_Sprite3.png").getImage(); //cargo el sprite
+        personajeX = 350;
+        personajeY = 250;
+        anchoNuevo = 100;
+        altoNuevo = 100;
+        personajeImagen = new ImageIcon("imagenes/Demo_Sprite4.png").getImage();
+        
+        
+        // Crea un bucle de juego utilizando un Timer
+        int velocidadMovimiento = 5; // Ajusta la velocidad de movimiento según tu preferencia
+        Timer timer = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Actualiza la posición del personaje en función del estado de las teclas
+                if (leftPressed) {
+                    personajeX -= velocidadMovimiento;
+                }
+                if (rightPressed) {
+                    personajeX += velocidadMovimiento;
+                }
+                if (upPressed) {
+                    personajeY -= velocidadMovimiento;
+                }
+                if (downPressed) {
+                    personajeY += velocidadMovimiento;
+                }
+                
+                repaint(); // Vuelve a dibujar la ventana para mostrar el nuevo estado del personaje
+            }
+        });
 
+        timer.start(); // Iniciar el bucle de juego
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawImage(personajeImagen, personajeX, personajeY, null); //me dibuja el sprite
+        g.drawImage(personajeImagen, personajeX, personajeY, anchoNuevo, altoNuevo, null);
     }
 
     private class TecladoListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            int keyCode = e.getKeyCode(); //Guardamos en la variable keyCode el valor del codigo de la tecla 
-            //que hemos pulsado
+            int keyCode = e.getKeyCode();
 
-            // En este switch revisa que el codigo de la tecla coincida con el evento de las teclas especificadas
-            switch (keyCode) {
-                case KeyEvent.VK_LEFT:
-                    personajeX -= 10;
-                    break;
-                case KeyEvent.VK_A:
-                    personajeX -= 10;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    personajeX += 10;
-                    break;
-                case KeyEvent.VK_D:
-                    personajeX += 10;
-                    break;
-                case KeyEvent.VK_UP:
-                    personajeY -= 10;
-                    break;
-                case KeyEvent.VK_W:
-                    personajeY -= 10;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    personajeY += 10;
-                    break;
-                case KeyEvent.VK_S:
-                    personajeY += 10;
-                    break;
+            // Configura el estado de las teclas según las teclas presionadas
+            if (keyCode == KeyEvent.VK_LEFT) {
+                leftPressed = true;
             }
+            if (keyCode == KeyEvent.VK_RIGHT) {
+                rightPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_UP) {
+                upPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_DOWN) {
+                downPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_A) {
+                leftPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                rightPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_W) {
+                upPressed = true;
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                downPressed = true;
+            }
+        }
 
-            repaint(); // Vuelve a dibujar la ventana para mostrar el nuevo estado del personaje
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+
+            // Restablece el estado de las teclas según las teclas liberadas
+            if (keyCode == KeyEvent.VK_LEFT) {
+                leftPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_RIGHT) {
+                rightPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_UP) {
+                upPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_DOWN) {
+                downPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_A) {
+                leftPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                rightPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_W) {
+                upPressed = false;
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                downPressed = false;
+            }
         }
     }
-
+    }
     
-}
+  
+
